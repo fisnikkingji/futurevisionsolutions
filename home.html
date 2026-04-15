@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Vision Solutions - Technology & Creative Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0d1b2a;
+      --navy-mid:    #1a2f45;
+      --navy-light:  #243b55;
+      --gold:        #c9a84c;
+      --gold-light:  #e8c97a;
+      --cream:       #f8f5f0;
+      --white:       #ffffff;
+      --text-primary:#0d1b2a;
+      --text-muted:  #5a6a7a;
+      --text-light:  #8a9bab;
+      --border:      #e2e8f0;
+      --radius:      16px;
+      --shadow-sm:   0 2px 12px rgba(13,27,42,0.07);
+      --shadow-md:   0 8px 32px rgba(13,27,42,0.12);
+      --shadow-lg:   0 20px 60px rgba(13,27,42,0.18);
+      --transition:  0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      /* Service accent colours */
+      --c-restaurant: #c9a84c;
+      --c-it:         #4a9eca;
+      --c-design:     #9b6fd4;
+      --c-marketing:  #e06b8b;
+      --c-server:     #3eb89a;
+      --c-chatbot:    #f97040;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible  { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 72px; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled { background: rgba(13,27,42,0.98); box-shadow: 0 4px 24px rgba(0,0,0,0.2); }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--white); letter-spacing: -0.02em; text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.72); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500; transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy) !important;
+      padding: 9px 22px; border-radius: 8px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 55%, var(--navy-light) 100%);
+      display: flex; align-items: center;
+      padding: 100px 40px 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-deco {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+    }
+    .hero-deco-1 { width: 500px; height: 500px; background: rgba(201,168,76,0.07); top: -100px; left: -80px; }
+    .hero-deco-2 { width: 400px; height: 400px; background: rgba(78,158,202,0.06); bottom: -80px; right: -80px; }
+    .hero-deco-3 { width: 300px; height: 300px; background: rgba(155,111,212,0.05); top: 30%; right: 20%; }
+
+    .hero-inner {
+      max-width: 1280px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.13);
+      border: 1px solid rgba(201,168,76,0.32);
+      color: var(--gold-light); padding: 6px 16px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; margin-bottom: 26px;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; background: var(--gold);
+      border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.4; transform:scale(0.65); }
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 22px;
+    }
+    .hero-title .accent { color: var(--gold); }
+    .hero-sub {
+      font-size: 1.08rem; color: rgba(255,255,255,0.62);
+      line-height: 1.75; margin-bottom: 38px; max-width: 500px;
+    }
+    .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 30px; border-radius: 10px;
+      font-weight: 700; font-size: 0.93rem;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.25s; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,0.82);
+      padding: 14px 30px; border-radius: 10px; font-weight: 600; font-size: 0.93rem;
+      text-decoration: none; border: 1.5px solid rgba(255,255,255,0.22);
+      display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); transform: translateY(-2px); }
+
+    /* ── ORBITAL CLUSTER ── */
+    .orbital-wrap {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .orbital {
+      position: relative;
+      width: 540px; height: 540px;
+      flex-shrink: 0;
+    }
+    /* dashed ring */
+    .orbit-ring {
+      position: absolute; inset: 60px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(201,168,76,0.18);
+      animation: ring-spin 40s linear infinite;
+    }
+    .orbit-ring-2 {
+      position: absolute; inset: 100px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,0.06);
+      animation: ring-spin 60s linear infinite reverse;
+    }
+    @keyframes ring-spin {
+      to { transform: rotate(360deg); }
+    }
+    /* center hub */
+    .orbit-hub {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 130px; height: 130px;
+      background: transparent;
+      border: none;
+      border-radius: 28px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0;
+      box-shadow: 0 0 40px rgba(201,168,76,0.18);
+      animation: hub-pulse 4s ease-in-out infinite;
+      z-index: 5;
+    }
+    @keyframes hub-pulse {
+      0%,100% { box-shadow: 0 0 40px rgba(201,168,76,0.12); }
+      50%      { box-shadow: 0 0 70px rgba(201,168,76,0.22); }
+    }
+    .hub-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--white); line-height: 1;
+    }
+    .hub-logo span { color: var(--gold); }
+    .hub-tagline {
+      font-size: 0.62rem; color: rgba(255,255,255,0.4);
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      text-align: center; line-height: 1.3;
+    }
+
+    /* connecting lines */
+    .orbit-lines {
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+    .orbit-lines svg {
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+    .orbit-line {
+      stroke: rgba(201,168,76,0.1);
+      stroke-width: 1;
+      stroke-dasharray: 4 6;
+    }
+
+    /* service bubbles — 5 positions around 210px radius */
+    /* Angles from top, clockwise: 0, 72, 144, 216, 288 deg
+       bubble 1 top:    (270, 60)   i.e. center-y - 210
+       bubble 2 right:  (469, 193)  cos(72-90 deg from right) ...
+       computed below as pixel offsets in a 540x540 box (center=270,270) */
+    .svc-bubble {
+      position: absolute;
+      width: 102px; height: 102px;
+      border-radius: 22px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      cursor: pointer; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.3s ease, border-color 0.3s;
+      z-index: 10;
+    }
+    .svc-bubble:hover {
+      transform: translate(var(--tx), var(--ty)) scale(1.12) !important;
+      z-index: 20;
+    }
+    /* float animations */
+    @keyframes float-a { 0%,100% { translate: 0 0; } 50% { translate: 0 -9px; } }
+    @keyframes float-b { 0%,100% { translate: 0 0; } 50% { translate: 6px -6px; } }
+    @keyframes float-c { 0%,100% { translate: 0 0; } 50% { translate: 5px 7px; } }
+    @keyframes float-d { 0%,100% { translate: 0 0; } 50% { translate: -5px 7px; } }
+    @keyframes float-e { 0%,100% { translate: 0 0; } 50% { translate: -7px -5px; } }
+    @keyframes float-f { 0%,100% { translate: 0 0; } 50% { translate: -5px -8px; } }
+
+    /* bubble 1 - Restaurant (top, 270deg = -90deg) */
+    /* x = 270 + 210*cos(-90) = 270, y = 270 + 210*sin(-90) = 60 */
+    /* position: left = x - 51 = 219, top = y - 51 = 9 */
+    .s1 {
+      left: 219px; top: 9px;
+      background: linear-gradient(145deg, rgba(201,168,76,0.22), rgba(201,168,76,0.08));
+      border-color: rgba(201,168,76,0.35);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.18);
+      animation: float-a 5s ease-in-out infinite;
+      --tx: 0; --ty: 0;
+    }
+    .s1:hover { border-color: rgba(201,168,76,0.7); box-shadow: 0 12px 40px rgba(201,168,76,0.35); }
+
+    /* bubble 2 - IT Support (60deg from top = -30deg from x-axis) */
+    /* x = 270 + 210*cos(-30) = 452, y = 270 + 210*sin(-30) = 165 */
+    /* position: left = 452-51 = 401, top = 165-51 = 114 */
+    .s2 {
+      left: 401px; top: 114px;
+      background: linear-gradient(145deg, rgba(74,158,202,0.22), rgba(74,158,202,0.07));
+      border-color: rgba(74,158,202,0.3);
+      box-shadow: 0 8px 28px rgba(74,158,202,0.15);
+      animation: float-b 6s ease-in-out infinite;
+      animation-delay: -1.2s;
+      --tx: 0; --ty: 0;
+    }
+    .s2:hover { border-color: rgba(74,158,202,0.7); box-shadow: 0 12px 40px rgba(74,158,202,0.3); }
+
+    /* bubble 3 - Design (120deg from top = 30deg from x-axis) */
+    /* x = 270 + 210*cos(30) = 452, y = 270 + 210*sin(30) = 375 */
+    /* position: left = 452-51 = 401, top = 375-51 = 324 */
+    .s3 {
+      left: 401px; top: 324px;
+      background: linear-gradient(145deg, rgba(155,111,212,0.22), rgba(155,111,212,0.07));
+      border-color: rgba(155,111,212,0.3);
+      box-shadow: 0 8px 28px rgba(155,111,212,0.15);
+      animation: float-c 5.5s ease-in-out infinite;
+      animation-delay: -2.4s;
+      --tx: 0; --ty: 0;
+    }
+    .s3:hover { border-color: rgba(155,111,212,0.7); box-shadow: 0 12px 40px rgba(155,111,212,0.3); }
+
+    /* bubble 4 - Marketing (180deg from top = 90deg from x-axis) */
+    /* x = 270 + 210*cos(90) = 270, y = 270 + 210*sin(90) = 480 */
+    /* position: left = 270-51 = 219, top = 480-51 = 429 */
+    .s4 {
+      left: 219px; top: 429px;
+      background: linear-gradient(145deg, rgba(224,107,139,0.22), rgba(224,107,139,0.07));
+      border-color: rgba(224,107,139,0.3);
+      box-shadow: 0 8px 28px rgba(224,107,139,0.15);
+      animation: float-d 6.5s ease-in-out infinite;
+      animation-delay: -3.6s;
+      --tx: 0; --ty: 0;
+    }
+    .s4:hover { border-color: rgba(224,107,139,0.7); box-shadow: 0 12px 40px rgba(224,107,139,0.3); }
+
+    /* bubble 5 - Servers (240deg from top = 150deg from x-axis) */
+    /* x = 270 + 210*cos(150) = 88, y = 270 + 210*sin(150) = 375 */
+    /* position: left = 88-51 = 37, top = 375-51 = 324 */
+    .s5 {
+      left: 37px; top: 324px;
+      background: linear-gradient(145deg, rgba(62,184,154,0.22), rgba(62,184,154,0.07));
+      border-color: rgba(62,184,154,0.3);
+      box-shadow: 0 8px 28px rgba(62,184,154,0.15);
+      animation: float-e 5.8s ease-in-out infinite;
+      animation-delay: -0.8s;
+      --tx: 0; --ty: 0;
+    }
+    .s5:hover { border-color: rgba(62,184,154,0.7); box-shadow: 0 12px 40px rgba(62,184,154,0.3); }
+
+    /* bubble 6 - Chatbots (300deg from top = 210deg from x-axis) */
+    /* x = 270 + 210*cos(210) = 88, y = 270 + 210*sin(210) = 165 */
+    /* position: left = 88-51 = 37, top = 165-51 = 114 */
+    .s6 {
+      left: 37px; top: 114px;
+      background: linear-gradient(145deg, rgba(249,112,64,0.22), rgba(249,112,64,0.07));
+      border-color: rgba(249,112,64,0.3);
+      box-shadow: 0 8px 28px rgba(249,112,64,0.15);
+      animation: float-f 6.2s ease-in-out infinite;
+      animation-delay: -4.8s;
+      --tx: 0; --ty: 0;
+    }
+    .s6:hover { border-color: rgba(249,112,64,0.7); box-shadow: 0 12px 40px rgba(249,112,64,0.3); }
+
+    .bubble-icon { font-size: 1.7rem; line-height: 1; }
+    .bubble-label {
+      font-size: 0.63rem; font-weight: 700;
+      letter-spacing: 0.04em; color: rgba(255,255,255,0.85);
+      text-align: center; line-height: 1.3; padding: 0 6px;
+      text-transform: uppercase;
+    }
+
+    /* tooltip that appears on hover */
+    .bubble-tip {
+      position: absolute;
+      bottom: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%);
+      background: rgba(13,27,42,0.96);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 10px 14px;
+      font-size: 0.75rem; color: rgba(255,255,255,0.75);
+      line-height: 1.5; white-space: nowrap;
+      pointer-events: none;
+      opacity: 0; transition: opacity 0.2s;
+      z-index: 30;
+      backdrop-filter: blur(8px);
+    }
+    /* s3,s4,s5 are bottom-half — show tip above */
+    .s1 .bubble-tip { bottom: auto; top: calc(100% + 10px); } /* s1 at top — show below */
+    .s2 .bubble-tip, .s3 .bubble-tip { left: auto; right: calc(100% - 14px); transform: none; white-space: nowrap; } /* right-side: open left */
+    .s5 .bubble-tip, .s6 .bubble-tip { left: calc(100% - 14px); transform: none; white-space: nowrap; } /* left-side: open right */
+    .svc-bubble:hover .bubble-tip { opacity: 1; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 96px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 13px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 18px;
+    }
+    .section-title.light { color: var(--white); }
+    .section-sub { font-size: 1.03rem; color: var(--text-muted); line-height: 1.72; max-width: 580px; }
+    .section-sub.light { color: rgba(255,255,255,0.58); }
+    .section-header { margin-bottom: 60px; }
+
+    /* ── SERVICES SECTION ── */
+    #services { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .svc-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      transition: all var(--transition);
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--accent-color, var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .svc-card:hover { border-color: var(--accent-color, var(--gold)); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .svc-card:hover::after { transform: scaleX(1); }
+    .svc-card-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 20px;
+      background: rgba(13,27,42,0.06);
+      border: 1px solid rgba(13,27,42,0.08);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .svc-card:hover .svc-card-icon {
+      background: color-mix(in srgb, var(--accent-color, var(--gold)) 15%, transparent);
+      border-color: color-mix(in srgb, var(--accent-color, var(--gold)) 30%, transparent);
+    }
+    .svc-card-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(13,27,42,0.06); border: 1px solid var(--border);
+      color: var(--text-light); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .svc-card.active-service .svc-card-badge {
+      background: color-mix(in srgb, var(--accent-color, var(--gold)) 15%, transparent);
+      border-color: color-mix(in srgb, var(--accent-color, var(--gold)) 35%, transparent);
+      color: color-mix(in srgb, var(--accent-color, var(--gold)) 80%, #000);
+    }
+    .svc-card h3 {
+      font-weight: 700; font-size: 1.05rem; color: var(--navy); margin-bottom: 12px;
+    }
+    .svc-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.72; }
+    .svc-card-arrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 20px; font-size: 0.8rem; font-weight: 600;
+      color: var(--accent-color, var(--gold));
+      opacity: 0; transition: opacity 0.25s, gap 0.25s;
+    }
+    .svc-card:hover .svc-card-arrow { opacity: 1; gap: 10px; }
+
+    /* ── WHY US / VALUE PROPS ── */
+    #why { background: var(--navy); position: relative; overflow: hidden; }
+    #why::before {
+      content: ''; position: absolute; top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .why-text p { color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 18px; }
+    .why-text p strong { color: var(--white); font-weight: 600; }
+    .why-pillars { display: grid; gap: 18px; }
+    .pillar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .pillar:hover { border-color: rgba(201,168,76,0.3); background: rgba(255,255,255,0.06); }
+    .pillar-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .pillar-body h4 { font-weight: 700; font-size: 0.95rem; color: var(--white); margin-bottom: 5px; }
+    .pillar-body p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    /* ── TEAM STRIP ── */
+    #team-strip {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 72px 40px;
+    }
+    .team-strip-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 60px;
+    }
+    .team-strip-text { flex: 1; }
+    .team-strip-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 700;
+      color: var(--navy); margin-bottom: 14px; line-height: 1.2;
+    }
+    .team-strip-text p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; max-width: 480px; }
+    .team-strip-photos { display: flex; gap: -10px; }
+    .team-photo-pill {
+      display: flex; align-items: center;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 100px; padding: 8px 20px 8px 8px;
+      gap: 12px; text-decoration: none;
+      transition: all 0.3s; margin-right: 10px;
+    }
+    .team-photo-pill:hover { border-color: var(--gold); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+    .pill-photo {
+      width: 44px; height: 44px; border-radius: 50%;
+      object-fit: cover; object-position: center 10%;
+      border: 2px solid var(--white);
+      flex-shrink: 0;
+    }
+    .pill-info { display: flex; flex-direction: column; }
+    .pill-name { font-weight: 700; font-size: 0.85rem; color: var(--navy); }
+    .pill-role { font-size: 0.72rem; color: var(--gold); font-weight: 600; }
+
+    /* ── CONTACT CTA ── */
+    #cta {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
+      padding: 100px 40px; text-align: center; position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: ''; position: absolute; top: -150px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.08), transparent 65%);
+      pointer-events: none;
+    }
+    .cta-inner { max-width: 680px; margin: 0 auto; position: relative; }
+    .cta-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      color: var(--white); margin-bottom: 18px; line-height: 1.15;
+    }
+    .cta-inner h2 span { color: var(--gold); }
+    .cta-inner p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.58);
+      line-height: 1.72; margin-bottom: 38px;
+    }
+    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #07101a;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 36px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      font-weight: 700; color: var(--white);
+    }
+    .footer-logo span { color: var(--gold); }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-size: 0.8rem; color: rgba(255,255,255,0.35);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* "page coming soon" labels always visible */
+    .svc-card-arrow[style*="coming soon"] { opacity: 1 !important; margin-top: 18px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1050px) {
+      .orbital { width: 420px; height: 420px; }
+      /* Recalculate bubble positions for 420px container (center=210, r=160) */
+      .orbit-ring { inset: 50px; }
+      .orbit-ring-2 { inset: 85px; }
+      .orbit-hub { width: 110px; height: 110px; border-radius: 24px; }
+      /* 420px, center=210, r=160, half=51; 60° intervals */
+      .s1 { left: 159px; top: 0px; }
+      .s2 { left: 298px; top: 79px; }
+      .s3 { left: 298px; top: 239px; }
+      .s4 { left: 159px; top: 319px; }
+      .s5 { left: 20px;  top: 239px; }
+      .s6 { left: 20px;  top: 79px; }
+    }
+    @media (max-width: 860px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 52px; }
+      .hero-sub { margin: 0 auto 38px; }
+      .hero-buttons { justify-content: center; }
+      section { padding: 72px 24px; }
+      .orbital { width: 360px; height: 360px; }
+      .orbital-wrap { justify-content: center; }
+      .orbit-hub { width: 96px; height: 96px; }
+      .svc-bubble { width: 84px; height: 84px; border-radius: 18px; }
+      .bubble-icon { font-size: 1.3rem; }
+      .bubble-label { font-size: 0.55rem; }
+      /* 360px container, center=180, r=135 */
+      .orbit-ring { inset: 40px; }
+      .orbit-ring-2 { inset: 70px; }
+      /* 360px, center=180, r=135, half=42; 60° intervals */
+      .s1 { left: 138px; top: 3px; }
+      .s2 { left: 255px; top: 71px; }
+      .s3 { left: 255px; top: 206px; }
+      .s4 { left: 138px; top: 273px; }
+      .s5 { left: 21px;  top: 206px; }
+      .s6 { left: 21px;  top: 71px; }
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .team-strip-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+    @media (max-width: 520px) {
+      .hero-title { font-size: 2.3rem; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .hero-buttons a, .hero-buttons button { width: 100%; justify-content: center; }
+      .orbital { width: 300px; height: 300px; }
+      .orbit-hub { width: 82px; height: 82px; }
+      .hub-logo { font-size: 1.1rem; }
+      .svc-bubble { width: 72px; height: 72px; border-radius: 16px; }
+      .bubble-label { font-size: 0.5rem; }
+      .bubble-icon { font-size: 1.1rem; }
+      /* 300px container, center=150, r=110 */
+      .orbit-ring { inset: 34px; }
+      .orbit-ring-2 { inset: 58px; }
+      /* 300px, center=150, r=110, half=36; 60° intervals */
+      .s1 { left: 114px; top: 4px; }
+      .s2 { left: 209px; top: 59px; }
+      .s3 { left: 209px; top: 169px; }
+      .s4 { left: 114px; top: 224px; }
+      .s5 { left: 19px;  top: 169px; }
+      .s6 { left: 19px;  top: 59px; }
+    }
+
+    /* ── KOSOVO ── */
+    #kosovo {
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .kosovo-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 64px;
+    }
+    .kstat {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      border: 1px solid rgba(201,168,76,0.2);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .kstat:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .kstat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--gold); line-height: 1.1; margin-bottom: 8px;
+    }
+    .kstat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500; line-height: 1.4; }
+    .kosovo-posts {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 32px; max-width: 1200px; margin: 0 auto; align-items: start;
+    }
+    .kosovo-post {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .kosovo-post:hover { border-color: var(--gold); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .kosovo-post.expanded { border-color: var(--gold); box-shadow: var(--shadow-lg); }
+    .kosovo-post.expanded:hover { transform: none; }
+    .kosovo-post-image-wrap { overflow: hidden; background: #f0f2f5; }
+    .kosovo-post-image {
+      width: 100%; display: block; aspect-ratio: 16 / 9;
+      object-fit: cover; transition: aspect-ratio 0s, object-fit 0s;
+    }
+    .kosovo-post.expanded .kosovo-post-image { aspect-ratio: auto; object-fit: contain; max-height: 600px; }
+    .kosovo-post-body { padding: 28px 32px 32px; flex: 1; display: flex; flex-direction: column; }
+    .post-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .kosovo-post-tag {
+      display: inline-block; background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3); color: #a07820;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+    }
+    .post-expand-toggle {
+      width: 32px; height: 32px; flex-shrink: 0; border-radius: 8px;
+      background: rgba(13,27,42,0.06); border: 1px solid rgba(13,27,42,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 1.25rem; font-weight: 300; line-height: 1;
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.25s, border-color 0.25s, color 0.25s;
+      user-select: none;
+    }
+    .kosovo-post.expanded .post-expand-toggle {
+      transform: rotate(45deg); background: rgba(201,168,76,0.14);
+      border-color: rgba(201,168,76,0.4); color: #a07820;
+    }
+    .kosovo-post-body h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 14px; line-height: 1.35;
+    }
+    .kosovo-post-body .summary { font-size: 0.875rem; color: var(--text-muted); line-height: 1.75; }
+    .post-expand-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .kosovo-post.expanded .post-expand-body { grid-template-rows: 1fr; }
+    .post-expand-inner { overflow: hidden; }
+    .kosovo-full-text {
+      font-size: 0.875rem; color: var(--text-muted); line-height: 1.8;
+      margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); white-space: pre-line;
+    }
+    .kosovo-attribution {
+      text-align: center; margin-top: 48px; padding: 20px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); max-width: 520px; margin-left: auto; margin-right: auto;
+    }
+    .kosovo-attribution p { font-size: 0.8rem; color: var(--text-light); line-height: 1.6; }
+    .kosovo-attribution strong { color: var(--text-muted); }
+    @media (max-width: 900px) {
+      .kosovo-stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .kosovo-posts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .kosovo-stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav id="navbar">
+  <a href="home.html" class="nav-logo">Future Vision <span>Solutions</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#kosovo">Why Kosovo</a></li>
+    <li><a href="#cta" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero">
+  <div class="hero-deco hero-deco-1"></div>
+  <div class="hero-deco hero-deco-2"></div>
+  <div class="hero-deco hero-deco-3"></div>
+  <div class="hero-inner">
+
+    <div class="hero-content">
+      <div class="hero-badge reveal">Tech &amp; Creative Services</div>
+      <h1 class="hero-title reveal stagger-1">
+        One Partner.<br /><span class="accent">Every Layer</span><br />of Your Tech.
+      </h1>
+      <p class="hero-sub reveal stagger-2">
+        Future Vision Solutions delivers expert technical support, creative services, and infrastructure management - augmented by AI workflows for faster diagnostics, smarter outcomes, and support that genuinely scales.
+      </p>
+      <div class="hero-buttons reveal stagger-3">
+        <a href="#services" class="btn-primary">Explore Services <span>&#8594;</span></a>
+        <a href="#cta" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="orbital-wrap reveal-right stagger-2">
+      <div class="orbital">
+
+        <!-- dashed rings -->
+        <div class="orbit-ring"></div>
+        <div class="orbit-ring-2"></div>
+
+        <!-- connector lines (SVG) -->
+        <div class="orbit-lines">
+          <svg viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="270" y1="270" x2="270" y2="60"   class="orbit-line" />
+            <line x1="270" y1="270" x2="452" y2="165"  class="orbit-line" />
+            <line x1="270" y1="270" x2="452" y2="375"  class="orbit-line" />
+            <line x1="270" y1="270" x2="270" y2="480"  class="orbit-line" />
+            <line x1="270" y1="270" x2="88"  y2="375"  class="orbit-line" />
+            <line x1="270" y1="270" x2="88"  y2="165"  class="orbit-line" />
+          </svg>
+        </div>
+
+        <!-- CENTER HUB -->
+        <div class="orbit-hub">
+          <img src="logo.svg" alt="Future Vision Solutions" style="width:108px;height:108px;display:block;" />
+        </div>
+
+        <!-- BUBBLE 1 - Restaurant Tech (links to existing page) -->
+        <a href="index.html" class="svc-bubble s1">
+          <span class="bubble-icon">&#127869;</span>
+          <span class="bubble-label">Restaurant<br />Tech</span>
+          <div class="bubble-tip">Restaurant Ecommerce<br />&amp; Online Ordering Support</div>
+        </a>
+
+        <!-- BUBBLE 2 - IT Support -->
+        <a href="#it-support" class="svc-bubble s2">
+          <span class="bubble-icon">&#128187;</span>
+          <span class="bubble-label">IT<br />Support</span>
+          <div class="bubble-tip">IT Support<br />Outsourcing</div>
+        </a>
+
+        <!-- BUBBLE 3 - Design -->
+        <a href="#design" class="svc-bubble s3">
+          <span class="bubble-icon">&#127912;</span>
+          <span class="bubble-label">Design &amp;<br />Video</span>
+          <div class="bubble-tip">Graphic Design<br />&amp; Video Editing</div>
+        </a>
+
+        <!-- BUBBLE 4 - Marketing -->
+        <a href="#marketing" class="svc-bubble s4">
+          <span class="bubble-icon">&#128293;</span>
+          <span class="bubble-label">Marketing<br />&amp; Social</span>
+          <div class="bubble-tip">Marketing &amp;<br />Social Media</div>
+        </a>
+
+        <!-- BUBBLE 5 - Server/Network -->
+        <a href="#servers" class="svc-bubble s5">
+          <span class="bubble-icon">&#128225;</span>
+          <span class="bubble-label">Server &amp;<br />Network</span>
+          <div class="bubble-tip">Server &amp; Network<br />Administration</div>
+        </a>
+
+        <!-- BUBBLE 6 - Chatbots & AI FAQs -->
+        <a href="#chatbots" class="svc-bubble s6">
+          <span class="bubble-icon">&#129302;</span>
+          <span class="bubble-label">AI<br />Chatbots</span>
+          <div class="bubble-tip">Chatbots &amp; Smart FAQs</div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+</div>
+
+<!-- ══════════════ SERVICES ══════════════ -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label reveal">What We Offer</div>
+      <h2 class="section-title reveal stagger-1">Five Disciplines. One Team.</h2>
+      <p class="section-sub reveal stagger-2">
+        From keeping your restaurant ordering platform alive during the dinner rush, to managing your infrastructure, to growing your brand online - we handle the full stack so you can focus on what you do best.
+      </p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- 1 - Restaurant Tech -->
+      <a href="index.html" id="restaurant-tech" class="svc-card active-service reveal stagger-1"
+         style="--accent-color: #c9a84c;">
+        <span class="svc-card-badge">Live Service</span>
+        <div class="svc-card-icon">&#127869;</div>
+        <h3>Restaurant Ecommerce Tech Support</h3>
+        <p>End-to-end support for restaurant online ordering platforms - POS integrations, payment failures, menu configuration, API troubleshooting, and on-call coverage during peak service hours. Built by former Paytronix engineers who know the platform inside out.</p>
+        <div class="svc-card-arrow" style="color: #c9a84c;">Explore this service <span>&#8594;</span></div>
+      </a>
+
+      <!-- 2 - IT Support -->
+      <div id="it-support" class="svc-card reveal stagger-2" style="--accent-color: #4a9eca;">
+        <span class="svc-card-badge">Available</span>
+        <div class="svc-card-icon">&#128187;</div>
+        <h3>IT Support Outsourcing</h3>
+        <p>Dedicated remote IT support for businesses that need reliability without the overhead of a full in-house team. Helpdesk coverage, software troubleshooting, user management, hardware support, and SLA-backed response times - powered by AI-assisted diagnostics that cut resolution time in half.</p>
+        <div class="svc-card-arrow" style="color: #4a9eca; opacity:1; font-style:italic; font-weight:500; letter-spacing:0.01em;">Page coming soon</div>
+      </div>
+
+      <!-- 3 - Design -->
+      <div id="design" class="svc-card reveal stagger-3" style="--accent-color: #9b6fd4;">
+        <span class="svc-card-badge">Available</span>
+        <div class="svc-card-icon">&#127912;</div>
+        <h3>Graphic Design &amp; Video Editing</h3>
+        <p>Brand identity, marketing collateral, social media visuals, and video production - all under one roof. Our creative team blends human design expertise with AI generation tools to deliver high-quality assets faster and at a fraction of typical agency rates.</p>
+        <div class="svc-card-arrow" style="color: #9b6fd4; opacity:1; font-style:italic; font-weight:500; letter-spacing:0.01em;">Page coming soon</div>
+      </div>
+
+      <!-- 4 - Marketing -->
+      <div id="marketing" class="svc-card reveal stagger-4" style="--accent-color: #e06b8b;">
+        <span class="svc-card-badge">Available</span>
+        <div class="svc-card-icon">&#128293;</div>
+        <h3>Marketing &amp; Social Media</h3>
+        <p>Strategy, content, scheduling, and analytics across every major platform. We combine data-driven campaign planning with AI-assisted content creation to keep your brand visible and consistent - without you having to think about it daily.</p>
+        <div class="svc-card-arrow" style="color: #e06b8b; opacity:1; font-style:italic; font-weight:500; letter-spacing:0.01em;">Page coming soon</div>
+      </div>
+
+      <!-- 5 - Server/Network -->
+      <div id="servers" class="svc-card reveal stagger-5" style="--accent-color: #3eb89a;">
+        <span class="svc-card-badge">Available</span>
+        <div class="svc-card-icon">&#128225;</div>
+        <h3>Server &amp; Network Administration</h3>
+        <p>Infrastructure management, cloud provisioning, network monitoring, VPN setup, backup and disaster recovery, and security hardening. We manage the layers your business runs on - with AI-powered monitoring that flags issues before they become outages.</p>
+        <div class="svc-card-arrow" style="color: #3eb89a; opacity:1; font-style:italic; font-weight:500; letter-spacing:0.01em;">Page coming soon</div>
+      </div>
+
+      <!-- 6 - Chatbots & AI FAQs -->
+      <div id="chatbots" class="svc-card reveal stagger-1" style="--accent-color: #f97040;">
+        <span class="svc-card-badge">Available</span>
+        <div class="svc-card-icon">&#129302;</div>
+        <h3>Chatbots &amp; Smart FAQs</h3>
+        <p>Custom AI-powered chatbots and smart FAQ systems that handle customer inquiries 24/7 - reducing support load, improving response times, and keeping visitors engaged. We build, train, and maintain conversational AI tailored to your brand voice and workflows.</p>
+        <div class="svc-card-arrow" style="color: #f97040; opacity:1; font-style:italic; font-weight:500; letter-spacing:0.01em;">Page coming soon</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHY US ══════════════ -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-text">
+        <div class="section-label reveal">Why Future Vision Solutions</div>
+        <h2 class="section-title light reveal stagger-1">Experts Who Work Like a Team, Not a Ticket Queue</h2>
+        <p class="reveal stagger-2">
+          We are a <strong>tight, senior-level team based in Kosovo</strong> - one of Europe's fastest-growing tech hubs, with a 10% flat corporate tax, the youngest workforce on the continent, and broadband speeds that rank 17th globally.
+        </p>
+        <p class="reveal stagger-3">
+          That location means you get <strong>senior Western-standard talent</strong> at a structural cost advantage - with full EU timezone overlap and English spoken at a professional level across the team.
+        </p>
+        <div style="margin-top: 28px;" class="reveal stagger-4">
+          <a href="index.html#about" class="btn-primary">Meet the Team &#8594;</a>
+        </div>
+      </div>
+      <div class="why-pillars">
+        <div class="pillar reveal stagger-1">
+          <div class="pillar-icon">&#9889;</div>
+          <div class="pillar-body">
+            <h4>Senior Experience, Not Junior Proxies</h4>
+            <p>Every engagement is handled by specialists with real platform depth - not rotated through a tier-one script.</p>
+          </div>
+        </div>
+
+        <div class="pillar reveal stagger-2">
+          <div class="pillar-icon">&#127758;</div>
+          <div class="pillar-body">
+            <h4>Kosovo Location Advantage</h4>
+            <p>10% corporate tax. EU timezone. #17 globally for broadband speed. Senior talent at 30-50% below Western European rates.</p>
+          </div>
+        </div>
+        <div class="pillar reveal stagger-3">
+          <div class="pillar-icon">&#128273;</div>
+          <div class="pillar-body">
+            <h4>One Partner Across All Six Services</h4>
+            <p>No vendor juggling. One relationship, one point of contact, one team that understands your business end to end.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- ══════════════ KOSOVO ══════════════ -->
+<section id="kosovo">
+  <div class="container">
+    <div class="section-header" style="text-align: center;">
+      <div class="section-label reveal">Our Location Advantage</div>
+      <h2 class="section-title reveal stagger-1">Why Kosovo Is a Hidden Gem for Business</h2>
+      <p class="section-sub reveal stagger-2" style="text-align: center; margin-left: auto; margin-right: auto;">The gap between what people assume about Kosovo and what the data actually shows is one of the widest in business today.</p>
+    </div>
+
+    <div class="kosovo-stats-bar">
+      <div class="kstat reveal stagger-1">
+        <div class="kstat-number">10%</div>
+        <div class="kstat-label">Flat Corporate Tax - Lowest in the Region</div>
+      </div>
+      <div class="kstat reveal stagger-2">
+        <div class="kstat-number">32</div>
+        <div class="kstat-label">Median Age - Youngest Population in Europe</div>
+      </div>
+      <div class="kstat reveal stagger-3">
+        <div class="kstat-number">17%</div>
+        <div class="kstat-label">Debt-to-GDP - Among the Lowest in the World</div>
+      </div>
+      <div class="kstat reveal stagger-4">
+        <div class="kstat-number">#17</div>
+        <div class="kstat-label">Global Ranking for Fixed Broadband Speed</div>
+      </div>
+    </div>
+
+    <div class="kosovo-posts">
+
+      <div class="kosovo-post reveal stagger-1">
+        <div class="kosovo-post-image-wrap">
+          <img class="kosovo-post-image" src="Spencer's Posts/1773050676100.jpeg" alt="Kosovo safety data - Numbeo 2025 crime index" />
+        </div>
+        <div class="kosovo-post-body">
+          <div class="post-header">
+            <span class="kosovo-post-tag">Safety</span>
+            <button class="post-expand-toggle" onclick="toggleKosovoPost(this)" aria-label="Expand post">+</button>
+          </div>
+          <h3>Safer Than France, Belgium, Sweden &amp; the UK</h3>
+          <p class="summary">That's not opinion - that's Numbeo's 2025 crime index. Kosovo carries the same US travel advisory as Germany, and Pristina scores nearly identical to Vienna on safety. The perception is 27 years out of date.</p>
+          <div class="post-expand-body">
+            <div class="post-expand-inner">
+              <div class="kosovo-full-text">Hot take: Kosovo is safer than France, Belgium, Sweden, and the UK.
+
+That's not my opinion. That's Numbeo's 2025 crime index.
+
+I live here. The most dangerous thing about Pristina is that nobody lets you leave a dinner without three courses, two desserts, and enough espresso to power a small city.
+
+The safety perception is just outdated.
+
+A war ended here 27 years ago. That's the entire basis for it. Most people here were kids. Some weren't even born.
+
+But that one word still triggers something in people's brains. Something from a news segment they half-watched in high school.
+
+Same US travel advisory as Germany. Pristina scores almost the same as Vienna on safety.
+
+Nobody knows this because nobody checks.
+
+And that's the part I think about as a business owner.
+
+Every wrong assumption about this country is a competitive advantage for the people who bother to visit.
+
+Youngest population in Europe. German and English spoken natively. 10 percent corporate tax. Full timezone overlap with the EU. And a workforce with a hunger you can't train into someone.
+
+Kosovo isn't the country people think it is. Hasn't been for a long time.
+
+That perception gap is expensive. Just not for the people who are already here.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kosovo-post reveal stagger-2">
+        <div class="kosovo-post-image-wrap">
+          <img class="kosovo-post-image" src="Spencer's Posts/1773664771631.jpeg" alt="Kosovo as the crown jewel of Balkan outsourcing" />
+        </div>
+        <div class="kosovo-post-body">
+          <div class="post-header">
+            <span class="kosovo-post-tag">Talent &amp; Cost</span>
+            <button class="post-expand-toggle" onclick="toggleKosovoPost(this)" aria-label="Expand post">+</button>
+          </div>
+          <h3>The Crown Jewel Every Outsourcing Guide Is Missing</h3>
+          <p class="summary">ICT exports hit &euro;347 million in 2024 - up 21% year over year, a fivefold increase in just four years. English and German spoken natively. Senior talent at a fraction of Warsaw or Lisbon rates.</p>
+          <div class="post-expand-body">
+            <div class="post-expand-inner">
+              <div class="kosovo-full-text">Every European outsourcing guide in 2025 names the same three countries.
+
+They're all missing the strongest region on the map.
+
+I've read every outsourcing report published this year. Tech StaQ. Devico. Index.dev.
+
+They all define the "European Execution Corridor" as Poland, Spain, and Portugal.
+
+Good countries. Real talent.
+
+But nobody mentions the Balkans. Not one list.
+
+And that's a problem, because the data says the Balkans should be on every shortlist.
+
+Croatia just ranked #2 globally in the 2025 EF English Proficiency Index. Score of 617.
+
+That's higher than Germany. Higher than Poland at #15. Higher than Portugal at #6.
+
+North Macedonia scored #17. Bosnia came in at #21.
+
+These aren't scrappy emerging markets trying to learn English. These are countries where professionals operate at native-adjacent levels.
+
+Now look at the rates.
+
+Senior developers in Poland bill at USD 65-90/hour. Portugal runs $85-90.
+
+In the Balkans, comparable senior talent runs $45-80 depending on the country and specialization.
+
+That's not "cheap labor." That's the same quality band at 30-50% less.
+
+The Balkans sit in CET - a 3-4 hour morning overlap with the US East Coast.
+
+But the crown jewel is Kosovo.
+
+Youngest population in Europe. Median age of 32. A 10% flat corporate tax, lowest in the region. The Euro as currency - no exchange rate risk.
+
+ICT exports hit &euro;347 million in 2024, up 21% year over year - a fivefold increase in four years.
+
+We run teams out of Kosovo. English and German spoken natively. Young, hungry professionals who don't job-hop every six months.
+
+Every outsourcing guide in 2026 will include the Balkans.
+
+The data is there. The blind spot is real.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kosovo-post reveal stagger-3">
+        <div class="kosovo-post-image-wrap">
+          <img class="kosovo-post-image" src="Spencer's Posts/1773992265214.jpeg" alt="Kosovo demographics vs EU aging crisis" />
+        </div>
+        <div class="kosovo-post-body">
+          <div class="post-header">
+            <span class="kosovo-post-tag">Demographics</span>
+            <button class="post-expand-toggle" onclick="toggleKosovoPost(this)" aria-label="Expand post">+</button>
+          </div>
+          <h3>While Europe Ages, Kosovo Is Just Getting Started</h3>
+          <p class="summary">France's debt is 113% of GDP. Italy's is 137%. Kosovo's is 17%. GDP grew 4.4% in 2024. Seventy percent of the population is under 35 - two hours from Berlin.</p>
+          <div class="post-expand-body">
+            <div class="post-expand-inner">
+              <div class="kosovo-full-text">17% debt-to-GDP. Youngest population in Europe. That's not Germany. That's Kosovo.
+
+Germany has 163 occupations with worker shortages right now. EU migration to Germany dropped 67% last year. A government study found a third of EU workers already living in Germany are thinking about leaving.
+
+Italy is the oldest country in the EU. Median age: 49. Almost 25% of the population is over 65. Fertility rate: 1.1%. By 2050 they'll have 1.5 workers for every retiree. In 2000 it was 4.
+
+The EU's working-age population is projected to shrink by 25 million people by 2070. Eurostat's number, not mine.
+
+This is the economic backdrop in the countries people consider safe.
+
+Now here's Kosovo.
+
+Median age: 32. Seventy percent of the population is under 35. Government debt: 16.9% of GDP. GDP grew 4.4% in 2024. Corporate tax is a flat 10%. The currency is the euro.
+
+542,000 Kosovars grew up in Germany. Another 250,000+ in Switzerland. They speak German at home. Walk through Pristina and you'll hear it at every other table.
+
+France's debt is 113% of GDP. Italy's is 137%. The UK is 94%. The US crossed 123%.
+
+Kosovo is at 17%. Fitch gave it a BB- credit rating with a stable outlook - the first sovereign rating in the country's history.
+
+Europe's biggest problem right now isn't capital or innovation. It's that the workforce is disappearing.
+
+And two hours by plane from Berlin, there's a country full of German-speaking 30-year-olds where the government takes 10% and owes 17%.
+
+The companies figuring this out in 2026 have a window. I don't think it stays this wide for long.
+
+Sources: Debt-to-GDP ratios: Eurostat / Trading Economics, 2024 - Kosovo BB- credit rating: Fitch Ratings, April 2024 - Germany worker shortages: Bundesagentur fur Arbeit, 2025 - EU workforce projections: Eurostat Demography 2025 - Kosovo GDP growth 4.4%: IMF, May 2025 - Italy demographics: Eurostat, January 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kosovo-post reveal stagger-4">
+        <div class="kosovo-post-image-wrap">
+          <img class="kosovo-post-image" src="Spencer's Posts/1774440306301.jpeg" alt="Kosovo internet speed ranks 17th globally" />
+        </div>
+        <div class="kosovo-post-body">
+          <div class="post-header">
+            <span class="kosovo-post-tag">Infrastructure</span>
+            <button class="post-expand-toggle" onclick="toggleKosovoPost(this)" aria-label="Expand post">+</button>
+          </div>
+          <h3>Faster Internet Than France, the UK, Italy &amp; Spain</h3>
+          <p class="summary">252 Mbps average. 70%+ 5G coverage. 96% internet penetration. Kosovo went straight to fiber and 5G - Speedtest's Global Index ranks it 17th in the world.</p>
+          <div class="post-expand-body">
+            <div class="post-expand-inner">
+              <div class="kosovo-full-text">Kosovo ranks 17th in the world for fixed broadband speed.
+
+Ahead of France. Ahead of the UK. Ahead of Italy. Ahead of Spain.
+
+That's not from Kosovo's government. That's Speedtest's Global Index. Anyone can check it in 30 seconds.
+
+252 Mbps average. Over 70% of the country covered by 5G. Internet penetration above 96%.
+
+And somehow the first question I get from every potential client is still: "But is the internet reliable there?"
+
+Every time. Without fail. Before talent. Before cost. Before anything else.
+
+I've taken video calls with clients in New York, London, and Munich from my apartment in Pristina without a single dropped frame. I had worse connectivity in three different US cities I've lived in.
+
+When you think about it, the reason is straightforward. Kosovo rebuilt its telecom infrastructure from scratch after the war. There were no copper lines from the '80s to work around. No patchwork systems from three different decades stitched together. The country went straight to fiber and 5G because there was nothing to retrofit.
+
+A lot of Western Europe is still running on networks that were laid before most people had email.
+
+The broadband data is public. The safety data is public. The cost data is public. The talent pipeline data is public. All of it one Google search away.
+
+But the perception hasn't changed in 25 years.
+
+I run client-facing teams from here. The calls are crisp. The connections are stable. I'm not asking anyone to take my word for it. I'm asking them to look up one ranking.
+
+The distance between what people assume about Kosovo and what's actually true gets wider every year. And for the companies that bother to check, that distance is the entire opportunity.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="kosovo-attribution reveal">
+      <p>Insights drawn from posts by <strong>Spencer Luna</strong>, shared with permission.<br />
+      Spencer runs client-facing teams from Pristina and writes about the real data behind Kosovo's business environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="section-label reveal" style="color: var(--gold-light);">Let's Talk</div>
+    <h2 class="reveal stagger-1">Ready to Work With a Team<br /><span>That Gets Things Done?</span></h2>
+    <p class="reveal stagger-2">
+      Whether you need one service or all six - we start with a conversation. No pitch decks, no sales calls. Just a direct discussion about what you need and whether we are the right fit.
+    </p>
+    <div class="cta-buttons reveal stagger-3">
+      <a href="index.html#contact" class="btn-primary">Start a Conversation &#8594;</a>
+      <a href="index.html" class="btn-ghost">View Restaurant Tech &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-logo">Future Vision Solutions</div>
+  <p>&copy; 2026 Future Vision Solutions. Technology &amp; Creative Services. Based in Kosovo.</p>
+  <div class="footer-links">
+    <a href="index.html">Restaurant Tech</a>
+    <a href="#services">Services</a>
+    <a href="#cta">Contact</a>
+  </div>
+</footer>
+
+<script>
+  /* ── NAV SCROLL ── */
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+  /* ── HAMBURGER ── */
+  document.getElementById('hamburger').addEventListener('click', () => {
+    const nl = document.querySelector('.nav-links');
+    const open = nl.style.display === 'flex';
+    Object.assign(nl.style, {
+      display: open ? 'none' : 'flex',
+      flexDirection: 'column',
+      position: 'absolute',
+      top: '72px', left: '0', right: '0',
+      background: 'rgba(13,27,42,0.98)',
+      padding: '20px 40px', gap: '18px',
+      borderTop: '1px solid rgba(255,255,255,0.08)'
+    });
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => obs.observe(el));
+
+  /* ── SMOOTH ANCHOR SCROLLING ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior: 'smooth' }); }
+    });
+  });
+  /* ── KOSOVO EXPAND ── */
+  function toggleKosovoPost(btn) {
+    const card = btn.closest('.kosovo-post');
+    const isOpen = card.classList.contains('expanded');
+    document.querySelectorAll('.kosovo-post.expanded').forEach(c => c.classList.remove('expanded'));
+    if (!isOpen) card.classList.add('expanded');
+  }
+</script>
+</body>
+</html>
