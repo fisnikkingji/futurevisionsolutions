@@ -1699,7 +1699,7 @@
         <div class="contact-items reveal stagger-3">
           <div class="contact-item">
             <div class="contact-item-icon">📧</div>
-            <span>hello@fvsolutions.io</span>
+            <span>support@futurevisionsolutions.com</span>
           </div>
           <div class="contact-item">
             <div class="contact-item-icon">🌍</div>
@@ -1853,16 +1853,45 @@
   });
 
   /* ── CONTACT FORM ── */
-  function submitForm() {
+  async function submitForm() {
     const fields = ['cf-first','cf-last','cf-email','cf-brand','cf-topic'];
     const allFilled = fields.every(id => document.getElementById(id).value.trim() !== '');
     if (!allFilled) {
       alert('Please fill in all required fields before submitting.');
       return;
     }
-    document.getElementById('form-success').style.display = 'block';
-    document.querySelector('.form-submit').disabled = true;
-    document.querySelector('.form-submit').style.opacity = '0.5';
+
+    const btn = document.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const data = {
+      name:    document.getElementById('cf-first').value.trim() + ' ' + document.getElementById('cf-last').value.trim(),
+      email:   document.getElementById('cf-email').value.trim(),
+      brand:   document.getElementById('cf-brand').value.trim(),
+      topic:   document.getElementById('cf-topic').value,
+      message: document.getElementById('cf-message') ? document.getElementById('cf-message').value.trim() : ''
+    };
+
+    try {
+      const res = await fetch('REPLACE_WITH_FORMSPREE_ENDPOINT', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        document.getElementById('form-success').style.display = 'block';
+        btn.style.opacity = '0.5';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+        alert('Something went wrong. Please email us directly at support@futurevisionsolutions.com');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+      alert('Could not send. Please email us at support@futurevisionsolutions.com');
+    }
   }
 
   /* ── MODAL ── */
